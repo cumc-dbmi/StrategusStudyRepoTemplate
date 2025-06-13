@@ -27,19 +27,18 @@ cohortTableName <- "sample_study"
 # Create the connection details for your CDM
 # More details on how to do this are found here:
 # https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html
-# connectionDetails <- DatabaseConnector::createConnectionDetails(
-#   dbms = Sys.getenv("DBMS_TYPE"),
-#   connectionString = Sys.getenv("CONNECTION_STRING"),
-#   user = Sys.getenv("DBMS_USERNAME"),
-#   password = Sys.getenv("DBMS_PASSWORD")
-# )
+connectionDetails <- DatabaseConnector::createConnectionDetails(
+  dbms = Sys.getenv("DBMS_TYPE"),
+  server = Sys.getenv("DBMS_SERVER"),
+  extraSettings = Sys.getenv("DBMS_EXTRA_SETTINGS")
+)
 
 # For this example we will use the Eunomia sample data 
 # set. This library is not installed by default so you
 # can install this by running:
 #
 # install.packages("Eunomia")
-connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+# connectionDetails <- Eunomia::getEunomiaConnectionDetails()
 
 # You can use this snippet to test your connection
 #conn <- DatabaseConnector::connect(connectionDetails)
