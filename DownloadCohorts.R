@@ -13,7 +13,7 @@
 # ##############################################################################
 
 library(dplyr)
-baseUrl <- "https://atlas-demo.ohdsi.org/WebAPI"
+baseUrl <- Sys.getenv("ATLAS_BASE_URL")
 # Use this if your WebAPI instance has security enables
 # ROhdsiWebApi::authorizeWebApi(
 #   baseUrl = baseUrl,
