@@ -15,10 +15,12 @@
 library(dplyr)
 baseUrl <- Sys.getenv("ATLAS_BASE_URL")
 # Use this if your WebAPI instance has security enables
-# ROhdsiWebApi::authorizeWebApi(
-#   baseUrl = baseUrl,
-#   authMethod = "windows"
-# )
+ROhdsiWebApi::authorizeWebApi(
+  baseUrl = baseUrl,
+  authMethod = "db",
+  webApiUser = Sys.getenv("ATLAS_WEBAPI_USER"),
+  webApiPassword = Sys.getenv("ATLAS_WEBAPI_PASSWORD")
+)
 cohortDefinitionSet <- ROhdsiWebApi::exportCohortDefinitionSet(
   baseUrl = baseUrl,
   cohortIds = c(
