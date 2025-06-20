@@ -17,7 +17,7 @@ baseUrl <- Sys.getenv("ATLAS_BASE_URL")
 # Use this if your WebAPI instance has security enables
 ROhdsiWebApi::authorizeWebApi(
   baseUrl = baseUrl,
-  authMethod = "db",
+  authMethod = "ad",
   webApiUser = Sys.getenv("ATLAS_WEBAPI_USER"),
   webApiPassword = Sys.getenv("ATLAS_WEBAPI_PASSWORD")
 )
