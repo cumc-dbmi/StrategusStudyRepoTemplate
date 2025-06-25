@@ -49,6 +49,9 @@ analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
   fileName = "inst/sampleStudy/sampleStudyAnalysisSpecification.json"
 )
 
+# fix threads to 1 to correct SCCS fatal error
+# options("strategus.SelfControlledCaseSeriesModule.getDbSccsDataThreads"=1)
+
 executionSettings <- Strategus::createCdmExecutionSettings(
   workDatabaseSchema = workDatabaseSchema,
   cdmDatabaseSchema = cdmDatabaseSchema,

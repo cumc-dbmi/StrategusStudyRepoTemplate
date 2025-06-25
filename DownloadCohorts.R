@@ -21,25 +21,18 @@ ROhdsiWebApi::authorizeWebApi(
   webApiUser = Sys.getenv("ATLAS_WEBAPI_USER"),
   webApiPassword = Sys.getenv("ATLAS_WEBAPI_PASSWORD")
 )
+
 cohortDefinitionSet <- ROhdsiWebApi::exportCohortDefinitionSet(
   baseUrl = baseUrl,
   cohortIds = c(
-    1778211, # All exposures - celecoxib
-    1790989, # All exposures - diclofenac
-    1780946 # GI Bleed
+    17, # all events of AMI
+    16, # all events of angioedema
+    15, # hypertension
+    14, # ARB
+    13 # ACEi
   ),
   generateStats = TRUE
 )
-
-# Rename cohorts
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1778211,]$cohortName <- "celecoxib"
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1790989,]$cohortName <- "diclofenac"
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1780946,]$cohortName <- "GI Bleed"
-
-# Re-number cohorts
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1778211,]$cohortId <- 1
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1790989,]$cohortId <- 2
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1780946,]$cohortId <- 3
 
 # Save the cohort definition set
 # NOTE: Update settingsFileName, jsonFolder and sqlFolder
@@ -54,7 +47,7 @@ CohortGenerator::saveCohortDefinitionSet(
 
 # Download and save the negative control outcomes
 negativeControlOutcomeCohortSet <- ROhdsiWebApi::getConceptSetDefinition(
-  conceptSetId = 1885090,
+  conceptSetId = 16,
   baseUrl = baseUrl
 ) %>%
   ROhdsiWebApi::resolveConceptSet(
