@@ -17,28 +17,30 @@ Sys.setenv("_JAVA_OPTIONS"="-Xmx4g") # Sets the Java maximum heap space to 4GB
 Sys.setenv("VROOM_THREADS"=1) # Sets the number of threads to 1 to avoid deadlocks on file system
 
 ##=========== START OF INPUTS ==========
-cdmDatabaseSchema <- "main"
-workDatabaseSchema <- "main"
+#Columbia Database
+databaseName <- "CUIMC" # Only used as a folder name for results from the study
+db <- "ohdsi_cumc_2025q2r1_deid"
+
+# Medicaid Claims Database
+#databaseName <- "MDCD" # Only used as a folder name for results from the study
+#db <- "cdm_mdcd_04172025"
+
+# Medicare Claims Database
+#databaseName <- "MDCR" # Only used as a folder name for results from the study
+#db <- "cdm_mdcr_04012025"
+
+cdmDatabaseSchema <- paste0(db,".dbo")  # The database / schema where the data in CDM format live
+workDatabaseSchema <- paste0(db,".results")  # A database /schema where study tables can be written
 outputLocation <- file.path(getwd(), "results")
-databaseName <- "Eunomia" # Only used as a folder name for results from the study
 minCellCount <- 5
-cohortTableName <- "sample_study"
+cohortTableName <- "sample_study_gh13"
 
 # Create the connection details for your CDM
 # More details on how to do this are found here:
 # https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html
-connectionDetails <- DatabaseConnector::createConnectionDetails(
-  dbms = Sys.getenv("DBMS_TYPE"),
-  server = Sys.getenv("DBMS_SERVER"),
-  extraSettings = Sys.getenv("DBMS_EXTRA_SETTINGS")
-)
-
-# For this example we will use the Eunomia sample data 
-# set. This library is not installed by default so you
-# can install this by running:
-#
-# install.packages("Eunomia")
-# connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+connectionDetails <- createConnectionDetails(dbms="sql server", 
+                                             server="ohdsiworkshop.mc.cumc.columbia.edu", 
+                                             extraSettings = "encrypt=true;trustServerCertificate=true")
 
 # You can use this snippet to test your connection
 #conn <- DatabaseConnector::connect(connectionDetails)
@@ -49,7 +51,7 @@ analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
   fileName = "inst/sampleStudy/sampleStudyAnalysisSpecification.json"
 )
 
-# fix threads to 1 to correct SCCS fatal error
+# # fix threads to 1 to correct SCCS fatal error
 # options("strategus.SelfControlledCaseSeriesModule.getDbSccsDataThreads"=1)
 
 executionSettings <- Strategus::createCdmExecutionSettings(
