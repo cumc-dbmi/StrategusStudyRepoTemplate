@@ -33,7 +33,7 @@ cdmDatabaseSchema <- paste0(db,".dbo")  # The database / schema where the data i
 workDatabaseSchema <- paste0(db,".results")  # A database /schema where study tables can be written
 outputLocation <- file.path(getwd(), "results")
 minCellCount <- 5
-cohortTableName <- "sample_study_gh13"
+cohortTableName <- "sample_study_UNI" # replace UNI with your uni
 
 # Create the connection details for your CDM
 # More details on how to do this are found here:
