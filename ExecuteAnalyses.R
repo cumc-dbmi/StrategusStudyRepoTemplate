@@ -30,10 +30,9 @@ minCellCount <- 5 # Minimum cell count for inclusion in output tables
 # More details on how to do this are found here:
 # https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html
 connectionDetails <- DatabaseConnector::createConnectionDetails(
-  dbms = "spark",
-  connectionString = keyring::key_get("databricksConnectionString"),
-  user = "token",
-  password = keyring::key_get("databricksToken")
+  dbms = Sys.getenv("DBMS_TYPE"),
+  server = Sys.getenv("DBMS_SERVER"),
+  extraSettings = Sys.getenv("DBMS_EXTRA_SETTINGS")
 )
 
 # You can use this snippet to test your connection
