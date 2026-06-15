@@ -15,7 +15,13 @@
 source("scriptsForStudyDesigner/WebApiHelperFunctions.R")
 library(dplyr)
 config <- config::get()
-authWebApi(authMethod = "none")
+
+ROhdsiWebApi::authorizeWebApi(
+  baseUrl = Sys.getenv("ATLAS_BASE_URL"),
+  authMethod = "ad",
+  webApiUser = Sys.getenv("ATLAS_WEBAPI_USER"),
+  webApiPassword = Sys.getenv("ATLAS_WEBAPI_PASSWORD")
+)
 
 # Define the cohorts that you'd like to download for use in this 
 # study. Here is how the cohortsToDownload tribble is organized
