@@ -1,7 +1,7 @@
 default:
   studyName: "strategus_template"
   resultsDatabaseSchema: "strategus_template"
-  webApiUrl: "https://atlas-demo.ohdsi.org/WebAPI"
+  webApiUrl: !expr Sys.getenv("ATLAS_BASE_URL")
   projectRootFolder: !expr getwd() # Project root folder will hold the study settings
   resultFolder: !expr file.path(getwd(), "results")  # Folder will hold the study results
   workFolder: !expr file.path(getwd(), "strategusInternals")  # Folder will hold the strategus intermediate work files
